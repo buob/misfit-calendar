@@ -29,11 +29,11 @@ $(function() {
   $genericLoader = $('<img src="./loader.gif" />');
   $genericLoader.insertBefore('#root');
 
-  getContents('https://misfitathletics.com/blog/').then(response => {
+  getContents('https://misfitathletics.com/').then(response => {
     $genericLoader.remove();
 
     // return all hrefs (& dates) on index page
-    return $(response).find('.entry.post').toArray().map(post => {
+    return $(response).find('.entry').toArray().map(post => {
       const $post = $(post);
       const isRestDay = $post.find('.post__title').text().indexOf('Rest') >= 0;
       let href;
@@ -41,7 +41,7 @@ $(function() {
 
       // If the post is the first one, some props are found differently
       if ($post.prop('tagName') == 'ARTICLE') {
-        href = $post.find('.post__button').attr('href');
+        href = $post.find('.hero-post-button').attr('href');
         date = moment().add(24, 'hours');
       } else {
         href = $post.attr('href');
